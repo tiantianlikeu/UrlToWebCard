@@ -152,3 +152,7 @@ logs/
 
 # maven repository settings
 settings.xml
+
+
+# crawler path info
+urlTOCardCrawler/

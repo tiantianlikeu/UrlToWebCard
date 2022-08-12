@@ -5,6 +5,7 @@ import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
 import cn.edu.hfut.dmic.webcollector.model.Page;
 import cn.edu.hfut.dmic.webcollector.net.HttpRequest;
 import cn.edu.hfut.dmic.webcollector.plugin.berkeley.BreadthCrawler;
+import com.alibaba.fastjson.JSON;
 import com.ifun.crawlers.card.service.CrawlerCommonService;
 import com.ifun.entity.UrlWebCard;
 import com.ifun.util.service.GetServiceImplUtil;
@@ -84,7 +85,8 @@ public class UrlToCardCrawler extends BreadthCrawler {
         }
         urlWebCard.setImgUrl(contentImgUrl);
         // todo 将对象urlWebCard更新到数据库，同步到es
-
+        String webCardJson = JSON.toJSONString(urlWebCard);
+        System.out.println("this is a web card: " + webCardJson);
     }
 
     @Override

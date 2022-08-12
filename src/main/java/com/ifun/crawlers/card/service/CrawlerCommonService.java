@@ -23,12 +23,12 @@ public abstract class CrawlerCommonService {
      * @return the description
      */
     public String getDescription(Document doc) {
+        String description = "";
         Elements elementsByAttributeValue = doc.getElementsByAttributeValue("name", "description");
         if (elementsByAttributeValue.size() > 0) {
-            String description = elementsByAttributeValue.get(0).attr("content");
-            return description;
+            description = elementsByAttributeValue.get(0).attr("content");
         }
-        return null;
+        return description;
     }
 
     /**
@@ -38,6 +38,7 @@ public abstract class CrawlerCommonService {
      * @return the content img
      */
     public String getContentImg(Document doc) {
+        String imgUrl = "";
         Elements body = doc.getElementsByTag("body");
         // 先找id 为content的
         List<Element> contentList = body.get(0).getElementsByTag("div").
@@ -47,11 +48,10 @@ public abstract class CrawlerCommonService {
             Elements imgElements = contentList.get(0).getElementsByTag("img");
             if (imgElements.size() > 0) {
                 // 获取内容第一张图片
-                String imgUrl = imgElements.get(0).attr("src");
-                return imgUrl;
+                imgUrl = imgElements.get(0).attr("src");
             }
         }
-        return null;
+        return imgUrl;
     }
 
 }

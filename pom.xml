@@ -22,6 +22,7 @@
         <webcollector.version>2.71</webcollector.version>
         <hutool.version>5.3.9</hutool.version>
         <commons.lang3.version>3.9</commons.lang3.version>
+        <fastjson.version>1.2.83</fastjson.version>
     </properties>
 
     <dependencies>
@@ -77,6 +78,14 @@
             <version>1.18.22</version>
         </dependency>
         <!-- lombok end -->
+
+        <!-- fastjson start -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+        <!-- fastjson end -->
 
         <!-- commons-lang start -->
         <dependency>
