@@ -1,11 +1,7 @@
 package com.ifun.crawlers.card.service;
 
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The type Crawler common service.
@@ -17,41 +13,47 @@ public abstract class CrawlerCommonService {
 
 
     /**
+     * 获取网页标题
+     *
+     * @param doc
+     * @return
+     */
+    public String getTitle(Document doc) {
+        Elements titleElements = doc.getElementsByTag("title");
+        if (titleElements.size() > 0) {
+            String title = titleElements.get(0).html();
+            return title;
+        }
+        return null;
+    }
+
+    /**
      * 获取网页的描述
      *
      * @param doc the doc
      * @return the description
      */
     public String getDescription(Document doc) {
-        String description = "";
         Elements elementsByAttributeValue = doc.getElementsByAttributeValue("name", "description");
         if (elementsByAttributeValue.size() > 0) {
-            description = elementsByAttributeValue.get(0).attr("content");
+            String description = elementsByAttributeValue.get(0).attr("content");
+            return description;
         }
-        return description;
+        return null;
     }
 
     /**
-     * 获取网页正文内容第一张图片
+     * 获取分享图
      *
      * @param doc the doc
      * @return the content img
      */
     public String getContentImg(Document doc) {
-        String imgUrl = "";
-        Elements body = doc.getElementsByTag("body");
-        // 先找id 为content的
-        List<Element> contentList = body.get(0).getElementsByTag("div").
-                stream().filter(div -> div.attr("id").contains("content"))
-                .collect(Collectors.toList());
-        if (!contentList.isEmpty()) {
-            Elements imgElements = contentList.get(0).getElementsByTag("img");
-            if (imgElements.size() > 0) {
-                // 获取内容第一张图片
-                imgUrl = imgElements.get(0).attr("src");
-            }
+        Elements elementsByAttributeValue = doc.getElementsByAttributeValue("itemprop", "image");
+        if (elementsByAttributeValue.size() > 0) {
+            String content = elementsByAttributeValue.get(0).attr("content");
+            return content;
         }
-        return imgUrl;
+        return null;
     }
-
 }

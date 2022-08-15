@@ -11,7 +11,6 @@ import com.ifun.entity.UrlWebCard;
 import com.ifun.util.service.GetServiceImplUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,13 +53,10 @@ public class UrlToCardCrawler extends BreadthCrawler {
         UrlWebCard urlWebCard = new UrlWebCard();
         Document doc = page.doc();
         urlWebCard.setUrl(url);
-        String title = "";
-        Elements titleElements = doc.getElementsByTag("title");
-        if (titleElements.size() > 0) {
-            title = titleElements.get(0).html();
-            logger.info("title: {}", title);
-            urlWebCard.setTitle(title);
-        }
+        // 获取标题
+        String title = crawlerCommonService.getTitle(doc);
+
+        urlWebCard.setTitle(title);
 
         // 获取描述，如果描述为空，则赋空字符或者去内容里面选取文字
         String description = crawlerCommonService.getDescription(doc);
